@@ -19,7 +19,9 @@
 		<input type="hidden" name="blueprintId" id="blueprintId" th:attr="value=${blueprint.id}"/>
 		<h1><img class="bsp-catalog-icon-large" th:attr='src=${"../catalogicon/" + blueprint.iconId}'/><div th:text="${blueprint.name}"/></h1>
 		<label for="lease">Lease days</label>
-		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' name="lease" id="lease" value="1" min="0" max="100" />
+		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' th:field="*{lease}" id="lease" value="1" min="0" max="100" />
+		<label for="description">Description</label>
+		<input type="text" id="description" th:field="*{description}"/>
 		<div id="machine-forms">
 			<div th:each="item: ${templates}" class="bsp-machine-section">
 				<h3 class="ui-bar ui-bar-a ui-corner-all machine-name" th:text="${item.name}" id="machine-name"/>

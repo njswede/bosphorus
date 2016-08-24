@@ -42,6 +42,12 @@ public class CatalogController extends AbstractController {
 		return "requests";
 	}
 	
+	@RequestMapping(value="/requestdetails/{id}", method=RequestMethod.GET) 
+	public String getRequests(@PathVariable String id, Model model) throws ClientProtocolException, IOException, HttpException {
+		model.addAttribute("request", this.getVra().get("/catalog-service/api/consumer/requests/" + id));
+		return "requestdetails";
+	}
+	
 	@RequestMapping(value="/resources", method=RequestMethod.GET) 
 	public String getResources(@RequestParam int start, @RequestParam int limit, Model model) throws ClientProtocolException, IOException, HttpException {
 		model.addAttribute("resources", this.getVra().getPaged("/catalog-service/api/consumer/resources/types/composition.resource.type.deployment", null, start, limit, new OrderBy("dateCreated", OrderBy.Order.DOWN)));
@@ -50,17 +56,19 @@ public class CatalogController extends AbstractController {
 		return "resources";
 	}
 	
-	@RequestMapping(value="/requestdetails/{id}", method=RequestMethod.GET) 
-	public String getRequests(@PathVariable String id, Model model) throws ClientProtocolException, IOException, HttpException {
-		model.addAttribute("request", this.getVra().get("/catalog-service/api/consumer/requests/" + id));
-		return "requestdetails";
-	}
-	
 	@RequestMapping(value="/resourcedetails/{id}", method=RequestMethod.GET) 
 	public String getResourceDetails(@PathVariable String id, Model model) throws ClientProtocolException, IOException, HttpException {
 		model.addAttribute("resource", this.getVra().get("/catalog-service/api/consumer/resources/" + id));
 		model.addAttribute("actions", this.getVra().get("/catalog-service/api/consumer/resources/" + id + "/actions"));
 		return "resourcedetails";
+	}
+	
+	@RequestMapping(value="/machines", method=RequestMethod.GET) 
+	public String getMachines(@RequestParam int start, @RequestParam int limit, Model model) throws ClientProtocolException, IOException, HttpException {
+		model.addAttribute("resources", this.getVra().getPaged("/catalog-service/api/consumer/resources/types/Infrastructure.Machine", null, start, limit, new OrderBy("dateCreated", OrderBy.Order.DOWN)));
+		model.addAttribute("pageNumber", start);
+		model.addAttribute("pageSize", limit);
+		return "machines";
 	}
 	
 	@RequestMapping(value="/submitaction", method=RequestMethod.POST) 
@@ -75,10 +83,10 @@ public class CatalogController extends AbstractController {
 	@RequestMapping(value="/catalogicon/{iconId}", method=RequestMethod.GET, produces=MediaType.IMAGE_PNG_VALUE)
 	public byte[] loadVraIcon(@PathVariable String iconId) throws IOException, UnsupportedOperationException, HttpException {
 		try {
-			//return this.getVra().loadIconData(iconId);
 			return this.getVra().getBinary("/catalog-service/api/icons/" + iconId + "/download", "image/png");
 		}  catch(HttpException e) {
-			InputStream is = this.getClass().getClassLoader().getResourceAsStream("static/images/" + iconId + ".png");
+			log.debug("Trying to load icon locally: " + iconId);
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream("static/images/" + iconId.toLowerCase() + ".png");
 			if(is == null)
 				throw e;
 			try {

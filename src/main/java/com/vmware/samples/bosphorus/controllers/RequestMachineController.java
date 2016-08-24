@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
@@ -66,12 +67,12 @@ public class RequestMachineController extends AbstractController {
 		}
 		model.addAttribute("templates", result);
 		model.addAttribute("blueprint", this.getVra().get("/catalog-service/api/consumer/entitledCatalogItems/" + blueprintId).get("catalogItem"));
-		model.addAttribute("machines", new MachineConfigurationBundle(blueprintId, result));
+		model.addAttribute("machines", new MachineConfigurationBundle(blueprintId, result, 1));
 		return "editrequest";
 	}
 	
 	@RequestMapping(value="/submitrequest", method=RequestMethod.POST)
-	public View submitRequest(HttpServletRequest request, @ModelAttribute("machines") MachineConfigurationBundle machines) throws ClientProtocolException, IOException, HttpException {
+	public View submitRequest(@ModelAttribute("machines") MachineConfigurationBundle machines) throws ClientProtocolException, IOException, HttpException {
 		Map<String, Object> template = this.getVra().get("/catalog-service/api/consumer/entitledCatalogItems/" + machines.getBlueprintId() + "/requests/template");
 		Map<String, Object> templateData = JSONHelper.getComplex(template, "data");
 		for(Map.Entry<String, MachineConfiguration> machineEntry : machines.getMachines().entrySet()) {
@@ -80,6 +81,8 @@ public class RequestMachineController extends AbstractController {
 			subTemplate.put("cpu", machine.getNumCPUs());
 			subTemplate.put("memory", machine.getMemoryMB());
 		}
+		//templateData.put("_leaseDays", machines.getLease());
+		template.put("description", machines.getDescription());
 		this.getVra().post("/catalog-service/api/consumer/entitledCatalogItems/" + machines.getBlueprintId() + "/requests", template);
 		return new RedirectView("/home");
 	}

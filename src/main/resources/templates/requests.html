@@ -51,7 +51,7 @@
  </div>
 
 <script>
-$(document).on("change", "#request-pager", function(event) {
+$("#request-pager").change(function(event) {
 	console.log(event.target.id)
 	changeListPage(event, 'requests', '#request-wrapper', event.target.value, 10)
 })
