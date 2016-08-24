@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Bosphorus</title>
+	<link rel="stylesheet" href="../webjars/jquery-mobile/1.4.5/jquery.mobile.min.css"/>
+	<script src="../webjars/jquery/2.1.4/jquery.min.js"></script>
+	<script src="../webjars/jquery-mobile/1.4.5/jquery.mobile.min.js"/>
+	<link rel="stylesheet" href="../css/bosphorus.css"/>
+	<script src="../js/bosphorus.js"/>	
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/spinbox/latest/jqm-spinbox.min.js"></script>
+</head>
+
+<body>
+<div data-role="page" id="edit-request">
+<div class="bsp-main-page">
+	<form th:action="@{/submitrequest}" method="post" id="request-form" th:object="${machines}">
+		<input type="hidden" name="blueprintId" id="blueprintId" th:attr="value=${blueprint.id}"/>
+		<h1><img class="bsp-catalog-icon-large" th:attr='src=${"../catalogicon/" + blueprint.iconId}'/><div th:text="${blueprint.name}"/></h1>
+		<label for="lease">Lease days</label>
+		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' name="lease" id="lease" value="1" min="0" max="100" />
+		<div id="machine-forms">
+			<div th:each="item: ${templates}" class="bsp-machine-section">
+				<h3 class="ui-bar ui-bar-a ui-corner-all machine-name" th:text="${item.name}" id="machine-name"/>
+    			<div class="ui-body ui-body-a ui-corner-all">
+					<label for="cpu">CPUs</label>		
+					<input type="range" name="cpu" id="cpu" th:field='*{machines[__${item.name}__].numCPUs}' th:attr='value=${item.cpu.defaultVal},min=${item.cpu.min},max=${item.cpu.max}'/>
+					<label for="ram">RAM (MB)</label>
+					<input type="range" name="ram" id="ram" th:field='*{machines[__${item.name}__].memoryMB}' th:attr='value=${item.ram.defaultVal},min=${item.ram.min},max=${item.ram.max}'/>
+					<label for="storage">Storage (GB)</label>
+					<input type="range" name="storage" id="storage" th:field='*{machines[__${item.name}__].diskGB}' th:attr=',value=${item.storage.defaultVal},min=${item.storage.min},max=${item.storage.max}'/>	
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+        	<button type="submit" id="submit" data-rel="back">Submit</button>
+        </div>
+	</form>
+</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<div data-role="popup"
+	data-theme="a" data-overlay-theme="b" class="ui-content"
+	style="max-width: 440px; padding-bottom: 2em;">
+	<img class="bsp-catalog-icon-medium"
+		th:attr='src=${"catalogicon/" + request.iconId}' />
+	<h3>Request #</h3>
+	<th:block th:text="${request.requestNumber}" />
+	<h3>Requested Item</h3>
+
+	<th:block th:text="${request.requestedItemName}" />
+
+	<th:block th:if="${request.description}">
+		<h3>Description</h3>
+		<th:block th:text="${request.description}" />
+	</th:block>
+
+	<h3>Requested For</h3>
+	<th:block th:text="${request.requestedFor}" />
+	
+	<h3>Requested By</h3>
+	<th:block th:text="${request.requestedBy}" />
+
+	<h3>Status</h3>
+	<th:block th:text="${request.stateName}" />
+
+	<th:block th:if="${request.requestCompletion}">
+		<h3>Error messages</h3>
+		<th:block th:text="${request.requestCompletion.completionDetails}" />
+	</th:block>
+ 	<script>
+    $("[data-role=popup]").enhanceWithin().popup({
+        afterclose: function () {
+            $(this).remove();
+        }
+    }).popup("open");
+  </script>
+</div>

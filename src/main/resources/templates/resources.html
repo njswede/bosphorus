@@ -1,0 +1,55 @@
+<div data-role="container" id="resources-container">
+	<div id="resource-wrapper">
+		<table data-role="table" id="resource-table"
+			data-mode="columntoggle" class="ui-responsive table-stroke">
+			<thead>	       
+				<tr>
+					<th />          
+					<th data-priority="1">Name</th>          
+					<th>Resource</th>          
+					<th>Created</th>
+					<th>Expires</th>       
+					<th>Destroyed</th>
+					<th>Status</th>     
+				</tr>
+				     
+			</thead>
+			<tbody id="requests-list">
+				<tr th:each="item: ${resources.content}">
+					<th width="5%"><img class="bsp-catalog-icon-tiny"
+						th:attr='src=${"catalogicon/" + item.iconId}' /></th>
+					<td><a href="#detailsPopup" th:attr="onClick=${'javascript:$(''#detailsContent'').load(''resourcedetails/' + item.id + ''');'}"
+						th:text="${item.name}"/></td>
+					<td th:text="${item.catalogItem !=null ? item.catalogItem.label : item.resourceTypeRef.label}"/>
+					<td th:text="${#dates.format(item.dateCreated, 'MM/dd hh:mm a')}"/>
+					<td th:text="${#dates.format(item.lease.end, 'MM/dd hh:mm a')}"/>
+					<td th:text="${#dates.format(item.destroyDate, 'MM/dd hh:mm a')}"/>
+					<td width="5%"><th:block th:switch="${#strings.trim(item.status)}">
+							<div th:case="'ACTIVE'">
+								<img src="images/bullet_green.png" class="bsp-catalog-icon-tiny" />
+							</div>
+							<div th:case="*">
+								<img src="images/bullet_blue.png" class="bsp-catalog-icon-tiny" />
+							</div>
+						</th:block></td>
+				</tr>
+			</tbody>
+	</table>
+	</div>
+	<div data-role="footer" class="bsp-paginator">
+		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' 
+			name="resource-page" id="resource-pager" min="1" th:attr="max=${resources.metadata.totalPages}, value=${pageNumber}"/>
+	</div>
+</div>
+
+<div id="detailsPopup">
+    <div id="detailsContent">
+    </div>
+</div>
+
+<script>
+$(document).on("change", "#resource-pager", function(event) {
+	console.log(event.target.id)
+	changeListPage(event, 'resources', '#resource-wrapper', event.target.value, 10)
+})
+</script>

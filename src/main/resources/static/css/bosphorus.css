@@ -1,0 +1,20 @@
+.bsp-login { align:center; background-color:silver; margin: auto; padding: 20px; width: 400px; height: 300px}
+.bsp-login-background { align: center; background-color=#5555ff}
+
+.bsp-catalog-icon-large { width:128px;height:128px;}
+.bsp-catalog-icon-medium { width:64px;height:64px;}
+.bsp-catalog-icon-small { width:32x;height:32px;}
+.bsp-catalog-icon-tiny { width:32x;height:32px;}
+
+.bsp-request-ok { background-color: #ddffcc}
+.bsp-request-fail { background-color: #ffcccc}
+.bsp-request-open { }
+
+.bsp-main-page { padding-left: 40px; padding-right: 40px; position: relative }
+
+.bsp-header { background-color: #5555ff; }
+.bsp-footer { background-color: #5555ff; }
+
+.bsp-paginator { background-color: #5555ff; }
+
+

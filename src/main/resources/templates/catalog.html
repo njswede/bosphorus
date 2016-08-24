@@ -1,0 +1,24 @@
+<div data-role="container" id="catalog-container">
+	<div id="catalog-wrapper">
+		<ul id="catalog-item-list" data-role="listview">
+			<th:block th:each="item: ${catalog.content}">
+			    <li><a th:attr='href=${"editrequest/" + item.catalogItem.id}' data-ajax="false">
+					<img th:attr='src=${"catalogicon/" + item.catalogItem.iconId}'/>
+					<h2 th:text="${item.catalogItem.name}"/>
+					<p th:text="${item.catalogItem.description}"/>
+				</a></li>
+			</th:block>
+		</ul>
+	</div>
+	<div data-role="footer" class="bsp-paginator">
+		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' 
+			name="catalog-page" id="catalog-pager" min="1" th:attr="max=${catalog.metadata.totalPages}, value=${pageNumber}"/>
+	</div>
+</div> 
+
+<script>
+$(document).on("change", "#catalog-pager", function(event) {
+	console.log(event.target.id)
+	changeListPage(event, 'catalog', '#catalog-wrapper', event.target.value, 10)
+})
+</script>
