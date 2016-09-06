@@ -6,6 +6,8 @@
   	<meta name="_csrf" th:content="${_csrf.token}"/>
   	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	<title>Bosphorus</title>
+	<link rel="stylesheet" href="css/themes/blue_steel.min.css"/>
+	<link rel="stylesheet" href="css/themes/jquery.moboile.icons.min.css"/>
 	<link rel="stylesheet" href="webjars/jquery-mobile/1.4.5/jquery.mobile.min.css"/>
 	<link rel="stylesheet" href="css/bosphorus.css"/>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -15,21 +17,29 @@
 </head>
 
 <body>
-<div>
-<div data-role="header" class="bsp-header"><a href="#" class="ui-btn ui-btn-inline">Home</a><h1>Project Bosphorus</h1></div>
+<div data-role="page">
+<div data-role="header">
+	<img src="images/bosphorus-logo.png" class="ui-btn-left"/>
+	<h1>Project Bosphorus</h1>
+	<a href="/logout" data-ajax="false" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-back">Logout</a>
+</div>
 <div id="homepage" class="bsp-main-page">
 		<div data-role="tabs" id="tabs">
 			<div data-role="navbar" data-inset="true">
 				<ul>
 					<li><a href="catalog?start=1&amp;limit=10" data-ajax="true">Catalog</a></li>
 					<li><a href="requests?start=1&amp;limit=10" data-ajax="true">Requests</a></li>
-					<li><a href="resources?start=1&amp;limit=10" data-ajax="true">Resources</a></li>
+					<li><a href="resources?start=1&amp;limit=10" data-ajax="true">Deployments</a></li>
 					<li><a href="machines?start=1&amp;limit=10" data-ajax="true">Machines</a></li>
 				</ul>
 			</div>
 		</div>
 </div>
-<div data-role="footer" data-position="fixed" class="bsp-footer"><p>Proof of concept</p></div>
+<div data-role="footer" data-position="fixed" class="bsp-footer">
+		<input type="text" class1="footer-button-left" data-role="spinbox" data-bsp-role="pager" data-options='{"type":"horizontal"}' 
+			name="machine-page" id="pager" min="1" max="1" value="1"/>			
+		<a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-refresh" onclick="refreshPagedContent('#pager')">Refresh</a>
+</div>
 </div>
 </body>
 </html>

@@ -12,8 +12,8 @@
 	<script type="text/javascript" src="webjars/jquery-mobile/1.4.5/jquery.mobile.min.js"/>
 	<script type="text/javascript" src="js/bosphorus.js"/>	
     </head>
-    <body>
-    	<div class="bsp-login">
+    <body class="bsp-login-body">
+    	<div class="bsp-login-box">
         	<div th:if="${param.error}">
             	Invalid username and password.
         	</div>
@@ -21,6 +21,7 @@
             	You have been logged out.
         	</div>
         	<form th:action="@{/login}" method="post" data-ajax="false">
+        			<h2>Bosphorus Login</h2>
             		<label for="username">User Name</label> 
             		<input type="text" name="username" id="username"/>
             		<label for="password">Password</label> 

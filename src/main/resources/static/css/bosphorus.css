@@ -1,5 +1,4 @@
-.bsp-login { align:center; background-color:silver; margin: auto; padding: 20px; width: 400px; height: 300px}
-.bsp-login-background { align: center; background-color=#5555ff}
+
 
 .bsp-catalog-icon-large { width:128px;height:128px;}
 .bsp-catalog-icon-medium { width:64px;height:64px;}
@@ -10,11 +9,43 @@
 .bsp-request-fail { background-color: #ffcccc}
 .bsp-request-open { }
 
-.bsp-main-page { padding-left: 40px; padding-right: 40px; position: relative }
+.bsp-main-page { padding-left: 40px; 
+	padding-right: 40px; 
+	position: relative }
 
 .bsp-header { background-color: #5555ff; }
-.bsp-footer { background-color: #5555ff; }
+.bsp-footer { background-color: #5555ff; 
+	margin: 25px; 
+	vertical-align: middle; }
 
 .bsp-paginator { background-color: #5555ff; }
 
+.bsp-login-body { background: url(../images/Bosphorus_Bridge-2.jpg);
+    background-repeat:repeat-y;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:100% 100%; }
 
+.bsp-login-box { align:center; 
+	background-color:#89a6ca; 
+	border-radius: 25px;
+	margin: auto; 
+	padding: 20px; 
+	width: 400px; 
+	height: 300px}
+	
+.ui-page { background: transparent; }
+
+.footer-button-left,
+.footer-button-right {
+	position: absolute;
+	margin: 0;
+	top: auto;
+	bottom: 0.74em;
+}
+.footer-button-left {
+	left: 2em;
+}
+.footer-button-right {
+	right: 2em;
+}

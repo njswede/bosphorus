@@ -72,5 +72,4 @@ public class VraToken implements Authentication {
 	public VraClient getVraClient() {
 		return vraClient;
 	}
-
 }

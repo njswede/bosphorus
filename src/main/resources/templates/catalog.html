@@ -10,15 +10,8 @@
 			</th:block>
 		</ul>
 	</div>
-	<div data-role="footer" class="bsp-paginator">
-		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' 
-			name="catalog-page" id="catalog-pager" min="1" th:attr="max=${catalog.metadata.totalPages}, value=${pageNumber}"/>
-	</div>
 </div> 
 
 <script>
-$(document).on("change", "#catalog-pager", function(event) {
-	console.log(event.target.id)
-	changeListPage(event, 'catalog', '#catalog-wrapper', event.target.value, 10)
-})
+	initPager('#pager', 'catalog', '#cataliog-table', '#catalog-wrapper')
 </script>

@@ -1,7 +1,7 @@
 <div data-role="container" id="request-container">
 	<div id="request-wrapper">
-		<table data-role="table" id="requests-table"
-			data-mode="columntoggle" class="ui-responsive table-stroke">
+		<table data-role="table" id="request-table" th:attr="data-bsp-pages=${requests.metadata.totalPages}"
+			class="ui-responsive table-stroke">
 			<thead>	       
 				<tr>
 					<th />          
@@ -39,10 +39,6 @@
 			</tbody>
 	</table>
 	</div>
-	<div data-role="footer" class="bsp-paginator">
-		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' 
-			name="request-page" id="request-pager" min="1" th:attr="max=${requests.metadata.totalPages}, value=${pageNumber}"/>
-	</div>
 </div>
 
 <div id="detailsPopup">
@@ -51,8 +47,6 @@
  </div>
 
 <script>
-$("#request-pager").change(function(event) {
-	console.log(event.target.id)
-	changeListPage(event, 'requests', '#request-wrapper', event.target.value, 10)
-})
+initPager('#pager', 'requests', '#request-table', '#request-wrapper')
+
 </script>

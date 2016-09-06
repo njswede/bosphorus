@@ -49,8 +49,14 @@ public class MachineTemplate {
 					min = decodeFacet((Map<String, Map<String, Object>>) facet.get("value"));
 				else if("maxValue".equals(type))
 					max = decodeFacet((Map<String, Map<String, Object>>) facet.get("value"));
+				if(max < min)
+					max = Math.max(min, defaultVal); // For blueprints without variability
+				if(defaultVal < min)
+					defaultVal = min;
+				if(defaultVal > max)
+					defaultVal = max;
 			}
-			return max != -1 || min != -1 || defaultVal != -1 ? new FieldConfig(defaultVal, min, max) : null;
+			return min != -1 || defaultVal != -1 ? new FieldConfig(defaultVal, min, max) : null;
 		}
 	}
 	

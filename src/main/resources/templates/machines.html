@@ -1,7 +1,8 @@
 <div data-role="container" id="resources-container">
 	<div id="machine-wrapper">
 		<table data-role="table" id="machine-table"
-			data-mode="columntoggle" class="ui-responsive table-stroke">
+			class="ui-responsive table-stroke" data-bsp-paged="true" 
+			th:attr="data-bsp-pages=${resources.metadata.totalPages}">
 			<thead>	       
 				<tr>
 					<th />          
@@ -18,12 +19,13 @@
 				<tr th:each="item: ${resources.content}">
 					<th width="5%"><img class="bsp-catalog-icon-tiny"
 						th:attr='src=${"catalogicon/" + item.iconId}' /></th>
-					<td><a href="#detailsPopup" th:attr="onClick=${'javascript:$(''#detailsContent'').load(''resourcedetails/' + item.id + ''');'}"
+					<td><a href="#" th:attr="data-bsp-popup-href=${'resourcedetails/'+ item.id}" 
+						data-bsp-link="popup" onclick="loadPopup(this, '#detailsPopup')"
 						th:text="${item.name}"/></td>
 					<td th:text="${item.catalogItem !=null ? item.catalogItem.label : item.resourceTypeRef.label}"/>
 					<td th:text="${#dates.format(item.dateCreated, 'MM/dd hh:mm a')}"/>
-					<td th:text="${#dates.format(item.lease.end, 'MM/dd hh:mm a')}"/>
-					<td th:text="${#dates.format(item.destroyDate, 'MM/dd hh:mm a')}"/>
+					<td th:text="${item.lease!=null and item.lease.containsKey('end')?#dates.format(item.lease.end, 'MM/dd hh:mm a'):'N/A'}"/>
+					<td th:text="${item.destroyDate!=null?#dates.format(item.destroyDate, 'MM/dd hh:mm a'):'N/A'}"/>
 					<td width="5%"><th:block th:switch="${#strings.trim(item.status)}">
 							<div th:case="'ACTIVE'">
 								<img src="images/bullet_green.png" class="bsp-catalog-icon-tiny" />
@@ -36,10 +38,6 @@
 			</tbody>
 	</table>
 	</div>
-	<div data-role="footer" class="bsp-paginator">
-		<input type="text" data-role="spinbox" data-options='{"type":"horizontal"}' 
-			name="machine-page" id="machine-pager" min="1" th:attr="max=${resources.metadata.totalPages}, value=${pageNumber}"/>
-	</div>
 </div>
 
 <div id="detailsPopup">
@@ -48,8 +46,5 @@
 </div>
 
 <script>
-$("#machine-pager").change(function(event) {
-	console.log(event.target.id)
-	changeListPage(event, 'machines', '#machine-wrapper', event.target.value, 10)
-})
+	initPager('#pager', 'machines', '#machine-table', '#machine-wrapper')
 </script>
