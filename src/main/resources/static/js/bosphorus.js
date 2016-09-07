@@ -77,3 +77,14 @@ function toast(msg){
 		$(this).remove();
 	});
 }
+
+function longPoll(pager) {
+		console.log("(Re)initializing long poll")
+	   setTimeout(function() {
+	       $.ajax({ url: "/events?type=*&subtype=*&timeout=30000", success: function(data) {
+	    	   console.log("Got data from long poll")
+	    	   refreshPagedContent(pager);
+	       }, dataType: "json", complete: function() { longPoll(pager) }
+	    }, 30000);
+	})
+}

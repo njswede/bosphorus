@@ -7,7 +7,7 @@
   	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 	<title>Bosphorus</title>
 	<link rel="stylesheet" href="css/themes/blue_steel.min.css"/>
-	<link rel="stylesheet" href="css/themes/jquery.moboile.icons.min.css"/>
+	<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css"/>
 	<link rel="stylesheet" href="webjars/jquery-mobile/1.4.5/jquery.mobile.min.css"/>
 	<link rel="stylesheet" href="css/bosphorus.css"/>
 	<script src="webjars/jquery/2.1.4/jquery.min.js"></script>
@@ -36,10 +36,13 @@
 		</div>
 </div>
 <div data-role="footer" data-position="fixed" class="bsp-footer">
-		<input type="text" class1="footer-button-left" data-role="spinbox" data-bsp-role="pager" data-options='{"type":"horizontal"}' 
+		<input type="text" data-role="spinbox" data-bsp-role="pager" data-options='{"type":"horizontal"}' 
 			name="machine-page" id="pager" min="1" max="1" value="1"/>			
 		<a href="#" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-refresh" onclick="refreshPagedContent('#pager')">Refresh</a>
 </div>
 </div>
 </body>
+<script>
+	longPoll('#pager');
+</script>
 </html>

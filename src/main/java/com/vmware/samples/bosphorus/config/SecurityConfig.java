@@ -32,10 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .and()
-            .logout()
-                .permitAll();
+            .and()
+            	.httpBasic()
+            .and()
+            	.logout().permitAll()
+        	.and()
+        		.csrf().ignoringAntMatchers("/events/**");
     }
+    
+    
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
