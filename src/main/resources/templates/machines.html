@@ -26,14 +26,16 @@
 					<td th:text="${#dates.format(item.dateCreated, 'MM/dd hh:mm a')}"/>
 					<td th:text="${item.lease!=null and item.lease.containsKey('end')?#dates.format(item.lease.end, 'MM/dd hh:mm a'):'N/A'}"/>
 					<td th:text="${item.destroyDate!=null?#dates.format(item.destroyDate, 'MM/dd hh:mm a'):'N/A'}"/>
-					<td width="5%"><th:block th:switch="${#strings.trim(item.status)}">
+					<!-- td width="5%"><th:block th:switch="${#strings.trim(item.status)}">
 							<div th:case="'ACTIVE'">
 								<img src="images/bullet_green.png" class="bsp-catalog-icon-tiny" />
 							</div>
 							<div th:case="*">
 								<img src="images/bullet_blue.png" class="bsp-catalog-icon-tiny" />
 							</div>
-						</th:block></td>
+						</th:block></td -->
+						<td data-bsp-lazy="true" data-bsp-dirty="true" th:attr="data-bsp-resourceId=${item.id}">Loading...</td>
+						
 				</tr>
 			</tbody>
 	</table>
@@ -46,5 +48,8 @@
 </div>
 
 <script>
-	initPager('#pager', 'machines', '#machine-table', '#machine-wrapper')
-</script>
+	initPager('#pager', 'machines', '#machine-table', '#machine-wrapper');
+	$(document).ready(function()  {
+		lazyLoadResourceStatus();
+	})
+	</script>

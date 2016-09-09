@@ -24,11 +24,20 @@ public class VraToken implements Authentication {
 	
 	private String user;
 	
+	private String password;
+	
+	private String tenant;
+	
+	private String vraUrl;
+	
 	private static final Log log = LogFactory.getLog(VraToken.class);
 	
 	public VraToken(String vraUrl, String tenant, String user, String password) throws ClientProtocolException, IOException, URISyntaxException, KeyManagementException, NoSuchAlgorithmException, KeyStoreException, HttpException {
 		vraClient = new VraClient(vraUrl, tenant, user, password, true);
 		this.user = user;
+		this.password = password;
+		this.tenant = tenant;
+		this.vraUrl = vraUrl;
 		log.debug("Created new token for user " + user);
 	}
 
@@ -39,7 +48,6 @@ public class VraToken implements Authentication {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -50,7 +58,6 @@ public class VraToken implements Authentication {
 
 	@Override
 	public Object getDetails() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -61,7 +68,9 @@ public class VraToken implements Authentication {
 
 	@Override
 	public boolean isAuthenticated() {
-		return vraClient != null && !vraClient.isExpired();
+		// If we exist we're authenticated!
+		//
+		return true;
 	}
 
 	@Override
@@ -69,7 +78,7 @@ public class VraToken implements Authentication {
 		throw new IllegalArgumentException("Not settable!");
 	}
 	
-	public VraClient getVraClient() {
-		return vraClient;
+	public VraClient getVraClient() throws HttpException, KeyManagementException, ClientProtocolException, NoSuchAlgorithmException, KeyStoreException, IOException, URISyntaxException {
+		return !vraClient.isExpired() ? vraClient : new VraClient(vraUrl, tenant, user, password, true);
 	}
 }

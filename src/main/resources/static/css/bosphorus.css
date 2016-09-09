@@ -49,3 +49,19 @@
 .footer-button-right {
 	right: 2em;
 }
+
+.status-on {
+	color: green;
+}
+
+.status-off {
+	color: red;
+}
+
+.status-expired {
+	color: #cbca04;
+}
+
+.status-unknown {
+	color: blue;
+}

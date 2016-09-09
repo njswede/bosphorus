@@ -19,14 +19,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	// We require authentication for all pages
+    	// We require authentication for all pages except some static content.
     	//
         http
             .authorizeRequests()
-                .antMatchers("/", "/css/**").permitAll()
-                .antMatchers("/", "/images/**").permitAll()
-                .antMatchers("/", "/js/**").permitAll()
-                .antMatchers("/", "/webjars/**").permitAll()
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/webjars/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -40,12 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.csrf().ignoringAntMatchers("/events/**");
     }
     
-    
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(new VraAuthenticationProvider(vraUrl));
-           // .inMemoryAuthentication()
-             //   .withUser("user").password("password").roles("USER");
     }
 }

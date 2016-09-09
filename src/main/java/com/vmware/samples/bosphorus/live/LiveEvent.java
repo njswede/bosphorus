@@ -20,14 +20,17 @@ public class LiveEvent {
 	
 	private long eventId;
 	
+	private String resourceId;
+	
 	public LiveEvent() {
 	}
 
-	public LiveEvent(String requestId, String type, String subtype) {
+	public LiveEvent(String requestId, String resourceId, String type, String subtype) {
 		super();
 		this.requestId = requestId;
 		this.type = type;
 		this.subtype = subtype;
+		this.resourceId = resourceId;
 	}
 
 	public String getRequestId() {
@@ -60,5 +63,13 @@ public class LiveEvent {
 
 	public void setEventId(long eventId) {
 		this.eventId = eventId;
+	}
+
+	public String getResourceId() {
+		return resourceId;
+	}
+
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
 	}
 }

@@ -82,11 +82,11 @@ public class CatalogController extends AbstractController {
 	@ResponseBody
 	@RequestMapping(value="/catalogicon/{iconId}", method=RequestMethod.GET, produces=MediaType.IMAGE_PNG_VALUE)
 	public byte[] loadVraIcon(@PathVariable String iconId) throws IOException, UnsupportedOperationException, HttpException {
-		try {
+		try {	
 			return this.getVra().getBinary("/catalog-service/api/icons/" + iconId + "/download", "image/png");
 		}  catch(HttpException e) {
 			log.debug("Trying to load icon locally: " + iconId);
-			InputStream is = this.getClass().getClassLoader().getResourceAsStream("static/images/" + iconId.toLowerCase() + ".png");
+			InputStream is = this.getClass().getClassLoader().getResourceAsStream("static/images/" + iconId + ".png");
 			if(is == null)
 				throw e;
 			try {

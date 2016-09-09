@@ -35,6 +35,7 @@ function changeListPage(event, file, parent, value, size) {
 	$.ajax({url:file + "?limit=" + size + " + &start=" + value, success: function(response) {
         $(parent).replaceWith($(response).find(parent))
         $(parent).enhanceWithin()
+        lazyLoadResourceStatus()
     }})
 }
 
@@ -82,9 +83,46 @@ function longPoll(pager) {
 		console.log("(Re)initializing long poll")
 	   setTimeout(function() {
 	       $.ajax({ url: "/events?type=*&subtype=*&timeout=30000", success: function(data) {
-	    	   console.log("Got data from long poll")
-	    	   refreshPagedContent(pager);
+	    	   console.log("Got data from long poll " + data)
+	    	   var resourceId = data.resourceId;
+	    	   if(data.type == "RESOURCE" && data.subtype == "CHANGE") {
+	    		   console.log("Got change event for " + resourceId);
+	    		   $("[data-bsp-resourceId='" + resourceId + "']").attr("data-bsp-dirty", "true");
+	    		   lazyLoadResourceStatus();
+	    	   } else
+	    		   refreshPagedContent(pager);
 	       }, dataType: "json", complete: function() { longPoll(pager) }
 	    }, 30000);
+	})
+}
+
+function lazyLoadResourceStatus() {
+	$("[data-bsp-lazy='true']").each(function() {
+		console.log("inner lazy")
+		if(!$(this).attr("data-bsp-dirty") == "true")
+			return;
+		$(this).attr("data-bsp-dirty", "false");
+		var id = $(this).attr("data-bsp-resourceId");
+		var td = $(this)
+		 $.ajax({ 
+			 url: "/rest/passthrough/catalog-service/api/consumer/resourceViews/" + id, success: function(data) {
+			 		td.text(data.status);
+			 		var cls;
+			 		switch(data.status) {
+			 		case "On":
+			 			cls = "status-on";
+			 			break;
+			 		case "Off":
+			 			cls = "status-off";
+			 			break;
+			 		case "Expired":
+			 			cls = "status-expired";
+			 			break;
+			 		default:
+			 			cls = "status-unknown";
+			 		}
+			 		td.attr("class", cls)
+       			}, 
+       		dataType: "json"})
 	})
 }
