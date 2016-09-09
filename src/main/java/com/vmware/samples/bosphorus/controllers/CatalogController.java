@@ -63,6 +63,14 @@ public class CatalogController extends AbstractController {
 		return "resourcedetails";
 	}
 	
+	@RequestMapping(value="/machinedetails/{id}", method=RequestMethod.GET) 
+	public String getMachineDetails(@PathVariable String id, Model model) throws ClientProtocolException, IOException, HttpException {
+		model.addAttribute("resource", this.getVra().get("/catalog-service/api/consumer/resources/" + id));
+		model.addAttribute("actions", this.getVra().get("/catalog-service/api/consumer/resources/" + id + "/actions"));
+		model.addAttribute("resourceView", this.getVra().get("/catalog-service/api/consumer/resourceViews/" + id));
+		return "machinedetails";
+	}
+
 	@RequestMapping(value="/machines", method=RequestMethod.GET) 
 	public String getMachines(@RequestParam int start, @RequestParam int limit, Model model) throws ClientProtocolException, IOException, HttpException {
 		model.addAttribute("resources", this.getVra().getPaged("/catalog-service/api/consumer/resources/types/Infrastructure.Machine", null, start, limit, new OrderBy("dateCreated", OrderBy.Order.DOWN)));

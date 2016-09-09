@@ -96,6 +96,25 @@ function longPoll(pager) {
 	})
 }
 
+function setMachineStatusForElement(element, status) {
+	element.text(status);
+	var cls;
+	switch(status) {
+	case "On":
+		cls = "status-on";
+		break;
+	case "Off":
+		cls = "status-off";
+		break;
+	case "Expired":
+		cls = "status-expired";
+		break;
+	default:
+		cls = "status-unknown";
+	}
+	element.attr("class", cls)
+}
+
 function lazyLoadResourceStatus() {
 	$("[data-bsp-lazy='true']").each(function() {
 		console.log("inner lazy")
@@ -106,22 +125,7 @@ function lazyLoadResourceStatus() {
 		var td = $(this)
 		 $.ajax({ 
 			 url: "/rest/passthrough/catalog-service/api/consumer/resourceViews/" + id, success: function(data) {
-			 		td.text(data.status);
-			 		var cls;
-			 		switch(data.status) {
-			 		case "On":
-			 			cls = "status-on";
-			 			break;
-			 		case "Off":
-			 			cls = "status-off";
-			 			break;
-			 		case "Expired":
-			 			cls = "status-expired";
-			 			break;
-			 		default:
-			 			cls = "status-unknown";
-			 		}
-			 		td.attr("class", cls)
+			 		setMachineStatusForElement(td, data.status)
        			}, 
        		dataType: "json"})
 	})

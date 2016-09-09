@@ -19,7 +19,7 @@
 				<tr th:each="item: ${resources.content}">
 					<th width="5%"><img class="bsp-catalog-icon-tiny"
 						th:attr='src=${"catalogicon/" + item.iconId}' /></th>
-					<td><a href="#" th:attr="data-bsp-popup-href=${'resourcedetails/'+ item.id}" 
+					<td><a href="#" th:attr="data-bsp-popup-href=${'machinedetails/'+ item.id}" 
 						data-bsp-link="popup" onclick="loadPopup(this, '#detailsPopup')"
 						th:text="${item.name}"/></td>
 					<td th:text="${item.catalogItem !=null ? item.catalogItem.label : item.resourceTypeRef.label}"/>
