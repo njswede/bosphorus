@@ -11,6 +11,9 @@ framework. The UI framework can very easily be swapped out for another jQuery-ba
 The choice of Java/Spring/Thymeleaf/jQuery was deliberate, as it seems to be a combination that's very commonly used for Enterprise 
 portals at the time of writing. 
 
+### Why the name?
+I wanted a name that was the related to the concept of a portal. If you paid attention during geography class, you know that the Bosphorus Strait, located in Turkey is the portal between the Mediterranean Sea and the Black Sea. Plus is sounds cool. 
+
 ## Design goals
 
 * Allow web coders to develop portals with no or little knowledge of vRA
