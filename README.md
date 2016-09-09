@@ -56,3 +56,11 @@ machine, but you can build/run it on any Linux, Windows or OSX.
 `java -jar target/bosphorus-0.0.1.jar --vra-url=https://<your vra host>`
 1. The portal should now be accessible on http://yourhost:8080/ 
 1. Log in using your vRA credentials. No domain ID is necessary. 
+
+## Known bugs and limitations
+
+* Currently only works for the default tenant.
+* Only supports day 2 operations for which there is no form.
+* Displays some day 2 operations that won't work outside the native vRA portal (such as Connect via RDP).
+* Only allows you to edit basic machine parameters when requesting catalog items. Networks, software components, etc. will be created using their default values.
+* In the Requests section, live update doesn't work for some day 2 operations.
