@@ -35,7 +35,8 @@ I will try to keep the binaries reasonably up to date, but if you want to be sur
 suggest you build Bospohorus from source. It's easy!
 
 1. Make sure you have java 1.8.x installed. Bosphorus will NOT run on java versions lower than 1.8.0!
-1. Download the binary from here: TODO.  
+1. Download the binary from here: 
+https://drive.google.com/file/d/0BymSAYUyWEPuN2xQbVZqQjVweTg/view?usp=sharing
 1. Run the downloaded JAR as a self-executing JAR. Specify the URL for your vRA host as the --vra-host parameter:
 `java -jar bosphorus-0.0.1.jar --vra-url=https://<your vra host>`
 1. The portal should now be accessible on http://yourhost:8080/ 
