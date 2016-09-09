@@ -17,6 +17,7 @@ I wanted a name that was related to the concept of a portal. If you paid attenti
 ## Design goals
 
 * Allow web coders to develop portals with no or little knowledge of vRA
+* Implement on a robust platform that's likely to be used in an enterprise setting.
 * Easy to install.
 * Extremely small footprint.
 * Extremely fast startup time.
