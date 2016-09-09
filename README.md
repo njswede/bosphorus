@@ -64,3 +64,12 @@ machine, but you can build/run it on any Linux, Windows or OSX.
 * Displays some day 2 operations that won't work outside the native vRA portal (such as Connect via RDP).
 * Only allows you to edit basic machine parameters when requesting catalog items. Networks, software components, etc. will be created using their default values.
 * In the Requests section, live update doesn't work for some day 2 operations.
+
+## Future updates
+
+I'm currently running Bosphorus as a side project, so updates may be sporadic. However, here is a list of updates I'm likely do post in the somewhat near future:
+
+* Support for tenants other than the default one. 
+* More robust live update code.
+* Support for "skins" and "themes".
+* Basic support for approvals (e.g. an "inbox" where you can do approve/reject)
