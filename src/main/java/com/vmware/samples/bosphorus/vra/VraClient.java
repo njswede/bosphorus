@@ -51,8 +51,11 @@ public class VraClient {
 			http = HttpClients.createDefault();
 		URI uri = new URI(url);
 		vraHost = new HttpHost(uri.getHost(), uri.getPort(), uri.getScheme());
-		String json = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\",\"tenant\":\"" + tenant + "\"}";
-		Map<String, Object> auth = this.post("/identity/api/tokens", json);
+		Map<String, String> login = new HashMap<>();
+		login.put("username", username);
+		login.put("password", password);
+		login.put("tenant", tenant);
+		Map<String, Object> auth = this.post("/identity/api/tokens", JSONHelper.encode(login));
 		bearerToken = "Bearer " + auth.get("id").toString();
 		tokenExpiration = (Date) auth.get("expires");
 		log.info("Successfully authenticated " + username + ". Session expires: " + tokenExpiration);

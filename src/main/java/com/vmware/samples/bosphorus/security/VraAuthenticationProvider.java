@@ -1,5 +1,7 @@
 package com.vmware.samples.bosphorus.security;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,16 +12,23 @@ public class VraAuthenticationProvider implements AuthenticationProvider {
 	
 	private String vraUrl;
 	
-	public VraAuthenticationProvider(String vraUrl) {
+	private String vraTenant;
+	
+	private static Log log = LogFactory.getLog(VraAuthenticationProvider.class);
+	
+	
+	public VraAuthenticationProvider(String vraUrl, String vraTenant) {
 		this.vraUrl = vraUrl;
+		this.vraTenant = vraTenant;
 	}
 
 	@Override
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		if(auth instanceof UsernamePasswordAuthenticationToken) {
 			try {
-				return new VraToken(vraUrl, "vsphere.local", auth.getPrincipal().toString(), auth.getCredentials().toString());
+				return new VraToken(vraUrl, vraTenant, auth.getPrincipal().toString(), auth.getCredentials().toString());
 			} catch (Exception e) {
+				log.error("Trouble logging in", e);
 				throw new AuthenticationServiceException("Internal error", e);
 			} 
 		}

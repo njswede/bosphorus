@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
 public class JSONHelper {
@@ -46,6 +48,10 @@ public class JSONHelper {
 		return json;
 	}
 	
+	public static String encode(Object o) throws JsonProcessingException {
+		return new ObjectMapper().writeValueAsString(o);
+	}
+	
 	@SuppressWarnings("unchecked")
 	private static Object fixDate(Object o) {
 		if(o == null)
@@ -71,4 +77,5 @@ public class JSONHelper {
 		}
 		return result;
 	}
+	
 }
