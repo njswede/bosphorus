@@ -109,13 +109,17 @@
       			<configuration>
        				<imageName>boshporus</imageName>
         			<baseImage>openjdk</baseImage>
-        			<entryPoint>["java", "-jar", "/opt/bosphorus/${project.build.finalName}.jar"]</entryPoint>
+        			<entryPoint>["/bin/sh", "/opt/bosphorus/run-bsp.sh"]</entryPoint>
 			        <resources>
-			           <resource>
-			             <targetPath>/opt/bosphorus</targetPath>
-			             <directory>${project.build.directory}</directory>
-			             <include>${project.build.finalName}.jar</include>
-			           </resource>
+			           	<resource>
+			             	<targetPath>/opt/bosphorus</targetPath>
+			             	<directory>${project.build.directory}</directory>
+			             	<include>${project.build.finalName}.jar</include>
+			           	</resource> 
+			           	<resource>
+			           		<targetPath>/opt/bosporus</targetPath>
+			           		<include>docker/run-bsp.sh</include>
+			           	</resource>
 			        </resources>
       			</configuration>
     		</plugin>
