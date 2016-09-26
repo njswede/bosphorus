@@ -103,6 +103,22 @@
         			<addResources>true</addResources>
      			</configuration>
             </plugin>
+            <plugin>
+     			<groupId>com.spotify</groupId>
+      			<artifactId>docker-maven-plugin</artifactId>
+      			<configuration>
+       				<imageName>boshporus</imageName>
+        			<baseImage>openjdk</baseImage>
+        			<entryPoint>["java", "-jar", "/opt/bosphorus/${project.build.finalName}.jar"]</entryPoint>
+			        <resources>
+			           <resource>
+			             <targetPath>/opt/bosphorus</targetPath>
+			             <directory>${project.build.directory}</directory>
+			             <include>${project.build.finalName}.jar</include>
+			           </resource>
+			        </resources>
+      			</configuration>
+    		</plugin>
         </plugins>
     </build>
 	
